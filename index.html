@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hotel Booking Cancellation Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b3d2e;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #f28c28;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #f7ead7;
+            color: #9b4d16;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .card h2 {
+            margin: 5px;
+            font-size: 20px;
+        }
+
+        .number {
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .chart {
+            background: #123f30;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .chart h2 {
+            color: #f28c28;
+            text-align: center;
+        }
+
+        .bar-container {
+            margin: 20px 0;
+        }
+
+        .label {
+            margin-bottom: 5px;
+        }
+
+        .bar {
+            height: 35px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .city {
+            background: #ed6a2c;
+            width: 68%;
+        }
+
+        .resort {
+            background: #7bc8a4;
+            width: 32%;
+        }
+
+        .booking {
+            background: #7bc8a4;
+        }
+
+        .cancel {
+            background: #ed6a2c;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .orange {
+            background: #ed6a2c;
+        }
+
+        .green {
+            background: #7bc8a4;
+        }
+
+        .years {
+            text-align: center;
+            background: #f7ead7;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .years button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #0b3d2e;
+            color: white;
+        }
+
+        .years button:hover {
+            background: #ed6a2c;
+        }
+
+        @media(max-width: 800px) {
+            .cards,
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Hotel Booking Cancellations</h1>
+
+    <div class="years">
+        <h2>Select Arrival Year</h2>
+
+        <button onclick="showYear(2015)">2015</button>
+        <button onclick="showYear(2016)">2016</button>
+        <button onclick="showYear(2017)">2017</button>
+
+        <p id="yearText">Showing data for all years</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>Total Bookings</h2>
+            <div class="number">119,390</div>
+        </div>
+
+        <div class="card">
+            <h2>Total Cancellations</h2>
+            <div class="number">44,224</div>
+        </div>
+
+    </div>
+
+    <div class="dashboard">
+
+        <div class="chart">
+
+            <h2>Bookings by Hotel Type</h2>
+
+            <div class="bar-container">
+
+                <div class="label">
+                    City Hotel
+                </div>
+
+                <div class="bar city"></div>
+
+                <div class="label">
+                    Resort Hotel
+                </div>
+
+                <div class="bar resort"></div>
+
+            </div>
+
+            <div class="legend">
+                <span>
+                    <span class="dot orange"></span>
+                    City Hotel
+                </span>
+
+                <span>
+                    <span class="dot green"></span>
+                    Resort Hotel
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="chart">
+
+            <h2>Cancellations by Hotel Type</h2>
+
+            <div class="bar-container">
+
+                <div class="label">
+                    City Hotel
+                </div>
+
+                <div class="bar city"></div>
+
+                <div class="label">
+                    Resort Hotel
+                </div>
+
+                <div class="bar resort"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart">
+
+            <h2>Booking vs Cancellation</h2>
+
+            <div class="bar-container">
+
+                <div class="label">
+                    Total Bookings
+                </div>
+
+                <div class="bar booking" style="width: 90%;"></div>
+
+                <div class="label">
+                    Cancelled Bookings
+                </div>
+
+                <div class="bar cancel" style="width: 37%;"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart">
+
+            <h2>Guest Type</h2>
+
+            <div class="bar-container">
+
+                <div class="label">
+                    Couples
+                </div>
+
+                <div class="bar booking" style="width: 80%;"></div>
+
+                <div class="label">
+                    Family
+                </div>
+
+                <div class="bar booking" style="width: 25%;"></div>
+
+                <div class="label">
+                    Single
+                </div>
+
+                <div class="bar booking" style="width: 22%;"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function showYear(year) {
+
+    document.getElementById("yearText").innerHTML =
+        "Showing data for arrival year: " + year;
+
+}
+
+</script>
+
+</body>
+</html>
